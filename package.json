@@ -1,7 +1,6 @@
 {
   "name": "ati-component-library",
   "version": "0.1.0",
-  "private": "true",
   "description": "React component library for AT&I projects",
   "scripts": {
     "rollup": "rollup -c",
