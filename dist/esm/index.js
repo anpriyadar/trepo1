@@ -2483,7 +2483,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "button {\n  font-size: 60px;\n}";
+var css_248z = "button {\n  font-size: 20px;\n  color: green;\n}";
 styleInject(css_248z);
 
 var Button = function (props) {
