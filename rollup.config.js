@@ -4,6 +4,7 @@ import postcss from "rollup-plugin-postcss";
 import { babel } from '@rollup/plugin-babel';
 import image from '@rollup/plugin-image';
 import replace from '@rollup/plugin-replace';
+import dts from 'rollup-plugin-dts';
 
 const packageJson = require("./package.json");
 

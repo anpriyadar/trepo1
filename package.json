@@ -75,9 +75,11 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "prop-types": "^15.8.1",
     "rollup": "^2.75.4",
+    "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-postcss": "^4.0.2",
     "webpack": "^5.72.1"
   },
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js"
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts"
 }
