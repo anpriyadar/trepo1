@@ -1,9 +1,12 @@
-export const __esModule: boolean;
-export function HeaderButton(_ref: any): any;
+export function HeaderButton({ children, theme, topNav, }: {
+    children: any;
+    theme: any;
+    topNav: any;
+}): JSX.Element;
 export namespace HeaderButton {
     namespace propTypes {
-        const theme: any;
-        const topNav: any;
+        const theme: PropTypes.Requireable<string>;
+        const topNav: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const theme_1: any;
@@ -12,3 +15,4 @@ export namespace HeaderButton {
         export { topNav_1 as topNav };
     }
 }
+import PropTypes from "prop-types";

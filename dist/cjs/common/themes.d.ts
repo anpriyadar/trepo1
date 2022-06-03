@@ -1,6 +1,5 @@
-export const __esModule: boolean;
-export default _default;
-declare namespace _default {
+export default themes;
+declare namespace themes {
     export { purple };
     export { teal };
     export { pink };
@@ -8,10 +7,9 @@ declare namespace _default {
     export { indigo };
     export { red };
 }
-declare var purple: _styles.Theme;
-declare var teal: _styles.Theme;
-declare var pink: _styles.Theme;
-declare var blue: _styles.Theme;
-declare var indigo: _styles.Theme;
-declare var red: _styles.Theme;
-import _styles = require("@mui/material/styles");
+declare const purple: import("@mui/material/styles").Theme;
+declare const teal: import("@mui/material/styles").Theme;
+declare const pink: import("@mui/material/styles").Theme;
+declare const blue: import("@mui/material/styles").Theme;
+declare const indigo: import("@mui/material/styles").Theme;
+declare const red: import("@mui/material/styles").Theme;

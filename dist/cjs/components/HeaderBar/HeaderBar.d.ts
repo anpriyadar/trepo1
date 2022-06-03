@@ -1,12 +1,17 @@
-export const __esModule: boolean;
-export function HeaderBar(_ref: any): any;
+export function HeaderBar({ theme, LeftContent, RightContent, topNav, tabbed, }: {
+    theme: any;
+    LeftContent: any;
+    RightContent: any;
+    topNav: any;
+    tabbed: any;
+}): JSX.Element;
 export namespace HeaderBar {
     namespace propTypes {
-        const theme: any;
-        const LeftContent: any;
-        const RightContent: any;
-        const topNav: any;
-        const tabbed: any;
+        const theme: PropTypes.Requireable<string>;
+        const LeftContent: PropTypes.Requireable<(...args: any[]) => any>;
+        const RightContent: PropTypes.Requireable<(...args: any[]) => any>;
+        const topNav: PropTypes.Requireable<boolean>;
+        const tabbed: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const theme_1: any;
@@ -21,3 +26,4 @@ export namespace HeaderBar {
         export { tabbed_1 as tabbed };
     }
 }
+import PropTypes from "prop-types";

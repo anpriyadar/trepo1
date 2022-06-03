@@ -1,6 +1,5 @@
-export const __esModule: boolean;
-export default _default;
-declare namespace _default {
+export default palette;
+declare namespace palette {
     namespace black {
         const main: string;
     }
