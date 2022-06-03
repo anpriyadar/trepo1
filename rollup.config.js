@@ -1,16 +1,15 @@
-import resolve, {nodeResolve} from "@rollup/plugin-node-resolve";
+import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import postcss from "rollup-plugin-postcss";
-import { babel } from '@rollup/plugin-babel';
 import image from '@rollup/plugin-image';
-import replace from '@rollup/plugin-replace';
 import dts from 'rollup-plugin-dts';
+import typescript from "rollup-plugin-typescript2";
 
 const packageJson = require("./package.json");
 
 export default [
   {
-    input: "src/index.js",
+    input: "lib/index.js",
     output: [
       {
         file: packageJson.main,
@@ -24,21 +23,19 @@ export default [
       },
     ],
     plugins: [
-      replace({
-        include: ["./**/TopNavLogo.jsx"],
-        preventAssignment: true,
-        // Replace ReactComponent to allow resolution of SVG files under Rollup
-        "ReactComponent": "default"
-      }),
-      resolve({ extensions: ['.jsx', '.js'] }),
+      //babel({ exclude: 'node_modules/**'}),
+      resolve(),
       commonjs(),
-      babel({ exclude: 'node_modules/**' }),
+      typescript({ tsconfig: "./tsconfig.json" }),
       image(),
       postcss(),
       
     ],
   },
   {
+    input: "dist/esm/index.d.ts",
+    output: [{ file: "dist/index.d.ts", format: "esm" }],
+    plugins: [dts()],
     external: [/\.(css|less|scss)$/],
   },
 ];

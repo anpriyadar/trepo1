@@ -16,6 +16,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "rollup-bundle": "npm run cleanup-dist && npm run cleanup-lib && npm run transpile-jsx-to-lib && npm run copy-images-to-lib && npm run rollup",
+    "cleanup-lib": "rm -rf lib",
+    "cleanup-dist": "rm -rf dist",
+    "transpile-jsx-to-lib": "npx babel src --out-dir lib --presets=@babel/preset-env,@babel/preset-react",
+    "copy-images-to-lib": "npx babel src/images --out-dir lib/images --copy-files",
+    "create-types-for-js": "npx -p typescript tsc ./lib  --declaration --allowJs --skipLibCheck --emitDeclarationOnly --outDir dist",
     "rollup": "rollup -c",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -53,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
@@ -77,9 +84,11 @@
     "rollup": "^2.75.4",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.32.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.2",
     "webpack": "^5.72.1"
   },
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts"
+  "module": "dist/esm/index.js"
 }
