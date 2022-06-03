@@ -1,1 +1,1 @@
-export * from './components';
+export {HeaderBar, HeaderButton, HeaderTabs, TopNavLogo} from './components';

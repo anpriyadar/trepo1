@@ -59286,19 +59286,32 @@ TopNavLogo.defaultProps = {
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	Object.defineProperty(exports, "HeaderBar", {
+	  enumerable: true,
+	  get: function get() {
+	    return _components.HeaderBar;
+	  }
+	});
+	Object.defineProperty(exports, "HeaderButton", {
+	  enumerable: true,
+	  get: function get() {
+	    return _components.HeaderButton;
+	  }
+	});
+	Object.defineProperty(exports, "HeaderTabs", {
+	  enumerable: true,
+	  get: function get() {
+	    return _components.HeaderTabs;
+	  }
+	});
+	Object.defineProperty(exports, "TopNavLogo", {
+	  enumerable: true,
+	  get: function get() {
+	    return _components.TopNavLogo;
+	  }
+	});
 
 	var _components = components;
-
-	Object.keys(_components).forEach(function (key) {
-	  if (key === "default" || key === "__esModule") return;
-	  if (key in exports && exports[key] === _components[key]) return;
-	  Object.defineProperty(exports, key, {
-	    enumerable: true,
-	    get: function get() {
-	      return _components[key];
-	    }
-	  });
-	});
 } (lib));
 
 var index = /*@__PURE__*/getDefaultExportFromCjs(lib);
