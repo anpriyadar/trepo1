@@ -1,47 +1,50 @@
 export const __esModule: boolean;
-export const HeaderBar: {
-    (_ref: any): any;
-    propTypes: {
-        theme: any;
-        LeftContent: any;
-        RightContent: any;
-        topNav: any;
-        tabbed: any;
+export default _default;
+declare namespace _default {
+    const HeaderBar: {
+        (_ref: any): any;
+        propTypes: {
+            theme: any;
+            LeftContent: any;
+            RightContent: any;
+            topNav: any;
+            tabbed: any;
+        };
+        defaultProps: {
+            theme: any;
+            LeftContent: any;
+            RightContent: any;
+            topNav: boolean;
+            tabbed: boolean;
+        };
     };
-    defaultProps: {
-        theme: any;
-        LeftContent: any;
-        RightContent: any;
-        topNav: boolean;
-        tabbed: boolean;
+    const HeaderButton: {
+        (_ref: any): any;
+        propTypes: {
+            theme: any;
+            topNav: any;
+        };
+        defaultProps: {
+            theme: any;
+            topNav: boolean;
+        };
     };
-};
-export const HeaderButton: {
-    (_ref: any): any;
-    propTypes: {
-        theme: any;
-        topNav: any;
+    const HeaderTabs: {
+        (_ref: any): any;
+        propTypes: {
+            theme: any;
+        };
+        defaultProps: {
+            theme: any;
+        };
     };
-    defaultProps: {
-        theme: any;
-        topNav: boolean;
+    const TopNavLogo: {
+        (_ref: any): any;
+        propTypes: {
+            theme: any;
+        };
+        defaultProps: {
+            theme: any;
+        };
     };
-};
-export const HeaderTabs: {
-    (_ref: any): any;
-    propTypes: {
-        theme: any;
-    };
-    defaultProps: {
-        theme: any;
-    };
-};
-export const TopNavLogo: {
-    (_ref: any): any;
-    propTypes: {
-        theme: any;
-    };
-    defaultProps: {
-        theme: any;
-    };
-};
+}

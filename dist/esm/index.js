@@ -40,7 +40,7 @@ function getAugmentedNamespace(n) {
 
 var lib = {};
 
-var components = {};
+var components$1 = {};
 
 var HeaderBar$2 = {};
 
@@ -54428,8 +54428,8 @@ var palette = {
     accent: '#F06292'
   }
 };
-var _default$1 = palette;
-palette$1.default = _default$1;
+var _default$2 = palette;
+palette$1.default = _default$2;
 
 var themes$1 = {};
 
@@ -54493,8 +54493,8 @@ var themes = {
   indigo: indigo,
   red: red
 };
-var _default = themes;
-themes$1.default = _default;
+var _default$1 = themes;
+themes$1.default = _default$1;
 
 Object.defineProperty(HeaderBar$1, "__esModule", {
   value: true
@@ -59279,42 +59279,23 @@ TopNavLogo.defaultProps = {
 	var _HeaderTabs = HeaderTabs$2;
 
 	var _TopNavLogo = TopNavLogo$2;
-} (components));
+} (components$1));
 
-(function (exports) {
+Object.defineProperty(lib, "__esModule", {
+  value: true
+});
+var default_1 = lib.default = void 0;
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	Object.defineProperty(exports, "HeaderBar", {
-	  enumerable: true,
-	  get: function get() {
-	    return _components.HeaderBar;
-	  }
-	});
-	Object.defineProperty(exports, "HeaderButton", {
-	  enumerable: true,
-	  get: function get() {
-	    return _components.HeaderButton;
-	  }
-	});
-	Object.defineProperty(exports, "HeaderTabs", {
-	  enumerable: true,
-	  get: function get() {
-	    return _components.HeaderTabs;
-	  }
-	});
-	Object.defineProperty(exports, "TopNavLogo", {
-	  enumerable: true,
-	  get: function get() {
-	    return _components.TopNavLogo;
-	  }
-	});
+var _components = components$1;
 
-	var _components = components;
-} (lib));
+var components = {
+  HeaderBar: _components.HeaderBar,
+  HeaderButton: _components.HeaderButton,
+  HeaderTabs: _components.HeaderTabs,
+  TopNavLogo: _components.TopNavLogo
+};
+var _default = components;
+default_1 = lib.default = _default;
 
-var index = /*@__PURE__*/getDefaultExportFromCjs(lib);
-
-export { index as default };
+export { default_1 as default };
 //# sourceMappingURL=index.js.map
