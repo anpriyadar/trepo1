@@ -1,7 +1,13 @@
 {
-  "name": "storybook",
+  "name": "storybook-reacter",
   "version": "0.1.0",
-  "private": true,
+  "description": "A simple template for a custom React component library",
+  "scripts": {
+    "rollup": "rollup -c",
+    "test": "jest",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -15,49 +21,8 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-    "rollup-bundle": "npm run cleanup-dist && npm run cleanup-lib && npm run transpile-jsx-to-lib && npm run copy-images-to-lib && npm run rollup",
-    "cleanup-lib": "rm -rf lib",
-    "cleanup-dist": "rm -rf dist",
-    "transpile-jsx-to-lib": "npx babel src --out-dir lib --presets=@babel/preset-env,@babel/preset-react",
-    "copy-images-to-lib": "npx babel src/images --out-dir lib/images --copy-files",
-    "create-types-for-js": "npx -p typescript tsc ./lib  --declaration --allowJs --skipLibCheck --emitDeclarationOnly --outDir dist",
-    "rollup": "rollup -c",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "author": "YOUR_NAME",
+  "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.18.2",
@@ -78,6 +43,7 @@
     "@storybook/preset-create-react-app": "^4.1.1",
     "@storybook/react": "^6.5.4",
     "@storybook/testing-library": "^0.0.11",
+    "@svgr/webpack": "^6.2.1",
     "babel-jest": "^28.1.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "prop-types": "^15.8.1",
@@ -91,5 +57,8 @@
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
   "types": "dist/index.d.ts"
 }

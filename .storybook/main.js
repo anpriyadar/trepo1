@@ -6,11 +6,20 @@ module.exports = {
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/preset-create-react-app"
+    "@storybook/preset-scss"
   ],
-  "framework": "@storybook/react",
   "core": {
-    "builder": "@storybook/builder-webpack5"
-  }
+    "builder": "webpack5"
+  },
+  "webpackFinal": async (config) => {
+    const fileLoaderRule = config.module.rules.find(
+      (rule) => !Array.isArray(rule.test) && rule.test.test(".svg"),
+    );
+    fileLoaderRule.exclude = /\.svg$/;
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack", "url-loader"],
+    });
+    return config;
+  },
 }
