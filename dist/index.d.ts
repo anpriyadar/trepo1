@@ -76,11 +76,4 @@ declare namespace TopNavLogo {
     }
 }
 
-declare namespace components {
-    export { HeaderBar };
-    export { HeaderButton };
-    export { HeaderTabs };
-    export { TopNavLogo };
-}
-
-export { components as default };
+export { HeaderBar, HeaderButton, HeaderTabs, TopNavLogo };

@@ -58525,12 +58525,5 @@ TopNavLogo.defaultProps = {
   theme: null
 };
 
-var components = {
-  HeaderBar: HeaderBar,
-  HeaderButton: HeaderButton,
-  HeaderTabs: HeaderTabs,
-  TopNavLogo: TopNavLogo
-};
-
-export { components as default };
+export { HeaderBar, HeaderButton, HeaderTabs, TopNavLogo };
 //# sourceMappingURL=index.js.map
