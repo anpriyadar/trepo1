@@ -11350,9 +11350,9 @@ function cssVarsParser(theme, options) {
   };
 }
 
-const DEFAULT_MODE_STORAGE_KEY = 'mui-mode';
-const DEFAULT_COLOR_SCHEME_STORAGE_KEY = 'mui-color-scheme';
-const DEFAULT_ATTRIBUTE = 'data-mui-color-scheme';
+const DEFAULT_MODE_STORAGE_KEY = 'mode';
+const DEFAULT_COLOR_SCHEME_STORAGE_KEY = 'color-scheme';
+const DEFAULT_ATTRIBUTE = 'data-color-scheme';
 function getInitColorSchemeScript(options) {
   const {
     enableSystem = false,
@@ -11649,6 +11649,9 @@ const DISABLE_CSS_TRANSITION = '*{-webkit-transition:none!important;-moz-transit
 function createCssVarsProvider(options) {
   const {
     theme: defaultTheme = {},
+    attribute: defaultAttribute = DEFAULT_ATTRIBUTE,
+    modeStorageKey: defaultModeStorageKey = DEFAULT_MODE_STORAGE_KEY,
+    colorSchemeStorageKey: defaultColorSchemeStorageKey = DEFAULT_COLOR_SCHEME_STORAGE_KEY,
     defaultMode: desisgnSystemMode = 'light',
     defaultColorScheme: designSystemColorScheme,
     disableTransitionOnChange: designSystemTransitionOnChange = false,
@@ -11678,9 +11681,9 @@ function createCssVarsProvider(options) {
     children,
     theme: themeProp = defaultTheme,
     prefix = designSystemPrefix,
-    modeStorageKey = DEFAULT_MODE_STORAGE_KEY,
-    colorSchemeStorageKey = DEFAULT_COLOR_SCHEME_STORAGE_KEY,
-    attribute = DEFAULT_ATTRIBUTE,
+    modeStorageKey = defaultModeStorageKey,
+    colorSchemeStorageKey = defaultColorSchemeStorageKey,
+    attribute = defaultAttribute,
     defaultMode = desisgnSystemMode,
     defaultColorScheme = designSystemColorScheme,
     disableTransitionOnChange = designSystemTransitionOnChange,
@@ -11939,10 +11942,17 @@ function createCssVarsProvider(options) {
      */
     theme: propTypes.exports.object
   } : void 0;
+
+  const getInitColorSchemeScript$1 = params => getInitColorSchemeScript(_extends({
+    attribute: defaultAttribute,
+    colorSchemeStorageKey: defaultColorSchemeStorageKey,
+    modeStorageKey: defaultModeStorageKey
+  }, params));
+
   return {
     CssVarsProvider,
     useColorScheme,
-    getInitColorSchemeScript
+    getInitColorSchemeScript: getInitColorSchemeScript$1
   };
 }
 
@@ -12595,6 +12605,18 @@ function useButton(parameters) {
   };
 }
 
+/**
+ * If `componentProps` is a function, calls it with the provided `ownerState`.
+ * Otherwise, just returns `componentProps`.
+ */
+function resolveComponentProps(componentProps, ownerState) {
+  if (typeof componentProps === 'function') {
+    return componentProps(ownerState);
+  }
+
+  return componentProps;
+}
+
 const _excluded$v = ["action", "children", "className", "component", "components", "componentsProps", "disabled", "focusableWhenDisabled", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseLeave"];
 
 const useUtilityClasses$g = ownerState => {
@@ -12622,7 +12644,7 @@ const useUtilityClasses$g = ownerState => {
 
 
 const ButtonUnstyled = /*#__PURE__*/react.exports.forwardRef(function ButtonUnstyled(props, forwardedRef) {
-  var _ref, _componentsProps$root;
+  var _ref;
 
   const {
     action,
@@ -12637,14 +12659,12 @@ const ButtonUnstyled = /*#__PURE__*/react.exports.forwardRef(function ButtonUnst
 
   const buttonRef = react.exports.useRef();
   const handleRef = useForkRef(buttonRef, forwardedRef);
-  const ButtonRoot = (_ref = component != null ? component : components.Root) != null ? _ref : 'button';
   const {
     active,
     focusVisible,
     setFocusVisible,
     getRootProps
   } = useButton(_extends({}, props, {
-    component: ButtonRoot,
     focusableWhenDisabled,
     ref: handleRef
   }));
@@ -12662,8 +12682,10 @@ const ButtonUnstyled = /*#__PURE__*/react.exports.forwardRef(function ButtonUnst
   });
 
   const classes = useUtilityClasses$g(ownerState);
-  const buttonRootProps = appendOwnerState(ButtonRoot, _extends({}, getRootProps(), other, componentsProps.root, {
-    className: clsx(classes.root, className, (_componentsProps$root = componentsProps.root) == null ? void 0 : _componentsProps$root.className)
+  const ButtonRoot = (_ref = component != null ? component : components.Root) != null ? _ref : 'button';
+  const rootComponentsProps = resolveComponentProps(componentsProps.root, ownerState);
+  const buttonRootProps = appendOwnerState(ButtonRoot, _extends({}, getRootProps(), other, rootComponentsProps, {
+    className: clsx(classes.root, className, rootComponentsProps == null ? void 0 : rootComponentsProps.className)
   }), ownerState);
   return /*#__PURE__*/jsxRuntime.exports.jsx(ButtonRoot, _extends({}, buttonRootProps, {
     children: children
@@ -12719,7 +12741,7 @@ process.env.NODE_ENV !== "production" ? ButtonUnstyled.propTypes
    * @default {}
    */
   componentsProps: propTypes.exports.shape({
-    root: propTypes.exports.object
+    root: propTypes.exports.oneOfType([propTypes.exports.func, propTypes.exports.object])
   }),
 
   /**
@@ -13133,18 +13155,6 @@ process.env.NODE_ENV !== "production" ? FormControlUnstyled.propTypes
 
 function useFormControlUnstyledContext() {
   return react.exports.useContext(FormControlUnstyledContext);
-}
-
-/**
- * If `componentProps` is a function, calls it with the provided `ownerState`.
- * Otherwise, just returns `componentProps`.
- */
-function resolveComponentProps(componentProps, ownerState) {
-  if (typeof componentProps === 'function') {
-    return componentProps(ownerState);
-  }
-
-  return componentProps;
 }
 
 const inputBaseClasses = generateUtilityClasses('MuiInput', ['root', 'formControl', 'focused', 'disabled', 'error', 'multiline', 'input', 'inputMultiline', 'inputTypeSearch', 'adornedStart', 'adornedEnd']);
@@ -46690,7 +46700,9 @@ function requireReactDom_development () {
 	      onRecoverableError = options.onRecoverableError;
 	    }
 
-	    if (options.transitionCallbacks !== undefined) ;
+	    if (options.transitionCallbacks !== undefined) {
+	      options.transitionCallbacks;
+	    }
 	  }
 
 	  var root = createContainer(container, ConcurrentRoot, null, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError);
@@ -51545,20 +51557,8 @@ function useSwitch(props) {
 const switchUnstyledClasses = generateUtilityClasses('MuiSwitch', ['root', 'input', 'track', 'thumb', 'checked', 'disabled', 'focusVisible', 'readOnly']);
 
 const _excluded$j = ["checked", "className", "component", "components", "componentsProps", "defaultChecked", "disabled", "onBlur", "onChange", "onFocus", "onFocusVisible", "readOnly", "required"];
-
-/**
- * The foundation for building custom-styled switches.
- *
- * Demos:
- *
- * - [Switch](https://mui.com/base/react-switch/)
- *
- * API:
- *
- * - [SwitchUnstyled API](https://mui.com/base/api/switch-unstyled/)
- */
 const SwitchUnstyled = /*#__PURE__*/react.exports.forwardRef(function SwitchUnstyled(props, ref) {
-  var _ref, _componentsProps$root, _components$Thumb, _componentsProps$thum, _components$Input, _componentsProps$inpu, _components$Track, _componentsProps$trac;
+  var _ref, _components$Thumb, _components$Input, _components$Track;
 
   const {
     checked: checkedProp,
@@ -51603,20 +51603,24 @@ const SwitchUnstyled = /*#__PURE__*/react.exports.forwardRef(function SwitchUnst
 
   const stateClasses = clsx(checked && switchUnstyledClasses.checked, disabled && switchUnstyledClasses.disabled, focusVisible && switchUnstyledClasses.focusVisible, readOnly && switchUnstyledClasses.readOnly);
   const Root = (_ref = component != null ? component : components.Root) != null ? _ref : 'span';
-  const rootProps = appendOwnerState(Root, _extends({}, otherProps, componentsProps.root, {
-    className: clsx(switchUnstyledClasses.root, stateClasses, className, (_componentsProps$root = componentsProps.root) == null ? void 0 : _componentsProps$root.className)
+  const rootComponentProps = resolveComponentProps(componentsProps.root, ownerState);
+  const rootProps = appendOwnerState(Root, _extends({}, otherProps, rootComponentProps, {
+    className: clsx(switchUnstyledClasses.root, stateClasses, className, rootComponentProps == null ? void 0 : rootComponentProps.className)
   }), ownerState);
   const Thumb = (_components$Thumb = components.Thumb) != null ? _components$Thumb : 'span';
-  const thumbProps = appendOwnerState(Thumb, _extends({}, componentsProps.thumb, {
-    className: clsx(switchUnstyledClasses.thumb, (_componentsProps$thum = componentsProps.thumb) == null ? void 0 : _componentsProps$thum.className)
+  const thumbComponentProps = resolveComponentProps(componentsProps.thumb, ownerState);
+  const thumbProps = appendOwnerState(Thumb, _extends({}, thumbComponentProps, {
+    className: clsx(switchUnstyledClasses.thumb, thumbComponentProps == null ? void 0 : thumbComponentProps.className)
   }), ownerState);
   const Input = (_components$Input = components.Input) != null ? _components$Input : 'input';
-  const inputProps = appendOwnerState(Input, _extends({}, getInputProps(), componentsProps.input, {
-    className: clsx(switchUnstyledClasses.input, (_componentsProps$inpu = componentsProps.input) == null ? void 0 : _componentsProps$inpu.className)
+  const inputComponentProps = resolveComponentProps(componentsProps.input, ownerState);
+  const inputProps = appendOwnerState(Input, _extends({}, getInputProps(), inputComponentProps, {
+    className: clsx(switchUnstyledClasses.input, inputComponentProps == null ? void 0 : inputComponentProps.className)
   }), ownerState);
   const Track = components.Track === null ? () => null : (_components$Track = components.Track) != null ? _components$Track : 'span';
-  const trackProps = appendOwnerState(Track, _extends({}, componentsProps.track, {
-    className: clsx(switchUnstyledClasses.track, (_componentsProps$trac = componentsProps.track) == null ? void 0 : _componentsProps$trac.className)
+  const trackComponentProps = resolveComponentProps(componentsProps.track, ownerState);
+  const trackProps = appendOwnerState(Track, _extends({}, trackComponentProps, {
+    className: clsx(switchUnstyledClasses.track, trackComponentProps == null ? void 0 : trackComponentProps.className)
   }), ownerState);
   return /*#__PURE__*/jsxRuntime.exports.jsxs(Root, _extends({
     ref: ref
@@ -51668,10 +51672,10 @@ process.env.NODE_ENV !== "production" ? SwitchUnstyled.propTypes
    * @default {}
    */
   componentsProps: propTypes.exports.shape({
-    input: propTypes.exports.object,
-    root: propTypes.exports.object,
-    thumb: propTypes.exports.object,
-    track: propTypes.exports.object
+    input: propTypes.exports.oneOfType([propTypes.exports.func, propTypes.exports.object]),
+    root: propTypes.exports.oneOfType([propTypes.exports.func, propTypes.exports.object]),
+    thumb: propTypes.exports.oneOfType([propTypes.exports.func, propTypes.exports.object]),
+    track: propTypes.exports.oneOfType([propTypes.exports.func, propTypes.exports.object])
   }),
 
   /**
@@ -51941,10 +51945,10 @@ process.env.NODE_ENV !== "production" ? TabsUnstyled.propTypes
   value: propTypes.exports.oneOfType([propTypes.exports.oneOf([false]), propTypes.exports.number, propTypes.exports.string])
 } : void 0;
 
-const useTabPanel = props => {
+const useTabPanel = parameters => {
   const {
     value
-  } = props;
+  } = parameters;
   const context = useTabContext();
 
   if (context === null) {
@@ -51957,9 +51961,9 @@ const useTabPanel = props => {
 
   const getRootProps = () => {
     return {
-      'aria-labelledby': tabId,
+      'aria-labelledby': tabId != null ? tabId : undefined,
       hidden,
-      id
+      id: id != null ? id : undefined
     };
   };
 
@@ -52015,12 +52019,13 @@ const TabPanelUnstyled = /*#__PURE__*/react.exports.forwardRef(function TabPanel
 
   const classes = useUtilityClasses$8(ownerState);
   const TabPanelRoot = (_ref = component != null ? component : components.Root) != null ? _ref : 'div';
-  const tabPanelRootProps = appendOwnerState(TabPanelRoot, _extends({}, other, componentsProps.root), ownerState);
-  return /*#__PURE__*/jsxRuntime.exports.jsx(TabPanelRoot, _extends({}, getRootProps(), {
-    ref: ref,
-    role: "tabpanel"
-  }, tabPanelRootProps, {
-    className: clsx(classes.root, (_componentsProps$root = componentsProps.root) == null ? void 0 : _componentsProps$root.className, className),
+  const tabPanelRootProps = appendOwnerState(TabPanelRoot, _extends({}, getRootProps(), {
+    role: 'tabpanel'
+  }, other, componentsProps.root, {
+    ref,
+    className: clsx(classes.root, (_componentsProps$root = componentsProps.root) == null ? void 0 : _componentsProps$root.className, className)
+  }), ownerState);
+  return /*#__PURE__*/jsxRuntime.exports.jsx(TabPanelRoot, _extends({}, tabPanelRootProps, {
     children: !hidden && children
   }));
 });
@@ -52135,13 +52140,13 @@ const moveFocus$1 = (list, currentFocus, traversalFunction) => {
   }
 };
 
-const useTabsList = props => {
+const useTabsList = parameters => {
   const {
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
     children,
     ref
-  } = props;
+  } = parameters;
   const tabsListRef = /*#__PURE__*/react.exports.createRef();
   const handleRef = useForkRef(tabsListRef, ref);
   const context = useTabContext();
@@ -52208,8 +52213,8 @@ const useTabsList = props => {
     (_otherHandlers$onKeyD = otherHandlers.onKeyDown) == null ? void 0 : _otherHandlers$onKeyD.call(otherHandlers, event);
   };
 
-  const getRootProps = otherHandlers => {
-    const propsEventHandlers = extractEventHandlers(props);
+  const getRootProps = (otherHandlers = {}) => {
+    const propsEventHandlers = extractEventHandlers(parameters);
 
     const externalEventHandlers = _extends({}, propsEventHandlers, otherHandlers);
 
@@ -52222,7 +52227,7 @@ const useTabsList = props => {
     return _extends({
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledBy,
-      'aria-orientation': orientation === 'vertical' ? 'vertical' : null,
+      'aria-orientation': orientation === 'vertical' ? 'vertical' : undefined,
       role: 'tablist',
       ref: handleRef
     }, mergedEventHandlers);
@@ -52314,10 +52319,11 @@ const TabsListUnstyled = /*#__PURE__*/react.exports.forwardRef((props, ref) => {
 
   const classes = useUtilityClasses$7(ownerState);
   const TabsListRoot = (_ref = component != null ? component : components.Root) != null ? _ref : 'div';
-  const tabsListRootProps = appendOwnerState(TabsListRoot, _extends({}, other, componentsProps.root), ownerState);
+  const tabsListRootProps = appendOwnerState(TabsListRoot, _extends({}, getRootProps(), other, componentsProps.root, {
+    className: clsx(className, (_componentsProps$root = componentsProps.root) == null ? void 0 : _componentsProps$root.className, classes.root)
+  }), ownerState);
   const processedChildren = processChildren();
-  return /*#__PURE__*/jsxRuntime.exports.jsx(TabsListRoot, _extends({}, getRootProps(), tabsListRootProps, {
-    className: clsx(className, (_componentsProps$root = componentsProps.root) == null ? void 0 : _componentsProps$root.className, classes.root),
+  return /*#__PURE__*/jsxRuntime.exports.jsx(TabsListRoot, _extends({}, tabsListRootProps, {
     children: processedChildren
   }));
 });
@@ -53874,6 +53880,9 @@ function extendTheme(options = {}, ...args) {
 const defaultTheme$1 = extendTheme();
 createCssVarsProvider({
   theme: defaultTheme$1,
+  attribute: 'data-mui-color-scheme',
+  modeStorageKey: 'mui-mode',
+  colorSchemeStorageKey: 'mui-color-scheme',
   defaultColorScheme: {
     light: 'light',
     dark: 'dark'
@@ -57088,7 +57097,7 @@ function easeInOutSin(time) {
   return (1 + Math.sin(Math.PI * time - Math.PI / 2)) / 2;
 }
 
-function animate(property, element, to, options, cb = () => {}) {
+function animate(property, element, to, options = {}, cb = () => {}) {
   const {
     ease = easeInOutSin,
     duration = 300 // standard
