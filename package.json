@@ -1,5 +1,8 @@
 {
-  "name": "storybook-reacter",
+  "name": "@anpriyadar/trepo1",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/trepo1"
+  },
   "version": "0.1.0",
   "description": "A simple template for a custom React component library",
   "scripts": {
